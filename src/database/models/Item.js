@@ -24,6 +24,6 @@ const ItemSchema = new Schema(
   }
 );
 
-const Item = model("User", ItemSchema, "users");
+const Item = model("Item", ItemSchema, "items");
 
 module.exports = Item;
