@@ -23,6 +23,7 @@ const userRegister = async (req, res, next) => {
     });
     res.status(201);
     res.json(newUser);
+    return;
   } catch (error) {
     error.code = 400;
     next(error);
