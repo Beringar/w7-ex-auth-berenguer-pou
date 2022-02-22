@@ -8,8 +8,7 @@ const encryptPassword = require("../utils/encryptPassword");
 const userRegister = async (req, res, next) => {
   const { username, password, name } = req.body;
   try {
-    const encryptedPassword = encryptPassword(password);
-
+    const encryptedPassword = await encryptPassword(password);
     const newUser = await User.create({
       username,
       password: encryptedPassword,
