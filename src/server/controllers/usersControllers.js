@@ -3,6 +3,25 @@ const chalk = require("chalk");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../../database/models/User");
+const encryptPassword = require("../utils/encryptPassword");
+
+const userRegister = async (req, res, next) => {
+  const { username, password, name } = req.body;
+  try {
+    const encryptedPassword = encryptPassword(password);
+
+    const newUser = await User.create({
+      username,
+      password: encryptedPassword,
+      name,
+    });
+    res.status(201);
+    res.json(newUser);
+  } catch (error) {
+    error.code = 400;
+    next(error);
+  }
+};
 
 const userLogin = async (req, res, next) => {
   const { username, password } = req.body;
@@ -36,4 +55,5 @@ const userLogin = async (req, res, next) => {
 
 module.exports = {
   userLogin,
+  userRegister,
 };
